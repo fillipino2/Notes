@@ -1,0 +1,28 @@
+PLAY [Testing ansible] *********************************************************
+
+TASK [Check for PermitRootLogin] ***********************************************
+changed: [172.30.0.111]
+
+TASK [Print PermitRootLogin Result] ********************************************
+ok: [172.30.0.111] => {
+    "msg": "#PermitRootLogin prohibit-password # the setting of \"PermitRootLogin without-password\"."
+}
+
+TASK [Check for ServiceNow Account] ********************************************
+changed: [172.30.0.111]
+
+TASK [Print ServiceNow Account Result] *****************************************
+ok: [172.30.0.111] => {
+    "msg": "svc_blv_lab:x:1001:1001::/home/svc_blv_lab:/bin/bash"
+}
+
+TASK [Chekc User accounts] *****************************************************
+changed: [172.30.0.111]
+
+TASK [Print User Accounts] *****************************************************
+ok: [172.30.0.111] => {
+    "msg": "iotsec,svc_blv_lab"
+}
+
+PLAY RECAP *********************************************************************
+172.30.0.111               : ok=6    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
