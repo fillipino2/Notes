@@ -1,0 +1,36 @@
+---
+
+- name: Testing ansible
+  hosts: server
+  gather_facts: no
+
+  tasks:
+  - block:
+    - name: Check for PermitRootLogin
+      shell: grep -i permitrootlogin /etc/ssh/sshd_config
+      register: permitrootlogin
+      failed_when: false
+
+    - name: Print PermitRootLogin Result
+      debug:
+        msg: "{{ permitrootlogin.stdout | replace('\n', ' ') }}"
+
+  - block:
+    - name: Check for ServiceNow Account
+      shell: grep -i svc_blv_lab /etc/passwd
+      register: servicenow_account
+      failed_when: false
+
+    - name: Print ServiceNow Account Result
+      debug:
+        msg: "{{ servicenow_account.stdout | default('ServiceAccount not found') }}"
+
+  - block:
+    - name: Chekc User accounts
+      shell: "awk -F: '$3>=1000 && $1 != \"nobody\" {print $1}' /etc/passwd"
+      register: user_account
+      failed_when: false
+
+    - name: Print User Accounts
+      debug:
+        msg: "{{ user_account.stdout | replace('\n', ',') | default('I am not sure what the opposite would look like') }}"
